@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>টেক গিয়ার - পিসি বিল্ডার ও এআই চ্যাটবট</title>
+    <!-- Tailwind CSS (ডিজাইনের জন্য) -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        .chat-popup { display: none; }
+        .chat-popup.show { display: block; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">TechGear BD</h1>
+            <ul class="flex space-x-4">
+                <li><a href="#" class="hover:underline">হোম</a></li>
+                <li><a href="#" class="font-bold underline">পিসি বিল্ডার</a></li>
+                <li><a href="#" class="hover:underline">মোবাইল প্রাইস</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- মেইন কন্টেন্ট (পিসি বিল্ডার) -->
+    <main class="container mx-auto my-8 p-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+         document        <!-- পার্টস সিলেকশন এরিয়া -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow">
+                <getElementById2 class="text-xl font-bold mb-6 border-b pb-2 text-blue-600">আপনার পছন্দের পার্টস বাছুন (ElementById2>
+                
+                <div class="space-y-6">
+                    <!-- প্রসেসর -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b pb-4">
+                        <div>
+                            <span class="font-semibold block">১. প্রসেসর (Processor)</span>
+                            <span id="selected-cpu" class="text-sm text-gray-500">কোনোটি সিলেক্ট করা হয়নি</span>
+                        </div>
+                        <select id="cpu-select" class="border p-2 rounded bg-gray-50 w-full sm:w-auto" onchange="updatePrice()">
+                            <option value="0" data-name="সিলেক্ট করুন">বাছুন...</option>
+                            <option value="150" data-name="Intel Core i5 12400F ($150)">Intel Core i5 12400F - $150</option>
+                            <option value="220" data-name="AMD Ryzen 5 7600X ($220)">AMD Ryzen 5 7600X - $220</option>
+                        </select>
+                    </div>
+
+                    <!-- মাদারবোর্ড -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b pb-4">
+                        <div>
+                            <span class="font-semibold block">২. মাদারবোর্ড (Motherboard)</span>
+                            <span id="selected-mobo" class="text-sm text-gray-500">কোনোটি সিলেক্ট করা হয়নি</span>
+                        </div>
+                        <select id="mobo-select" class="border p-2 rounded bg-gray-50 w-full sm:w-auto" onchange="updatePrice()">
+                            <option value="0" data-name="সিলেক্ট করুন">বাছুন...</option>
+                            <option value="90" data-name="MSI H610M ($90)">MSI H610M - $90</option>
+                            <option value="160" data-name="ASUS B650M ($160)">ASUS B650M - $160</option>
+                        </select>
+                    </div>
+
+                    <!-- র‍্যাম -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b pb-4">
+                        <div>
+                            <span class="font-semibold block">৩. র‍্যাম (RAM)</span>
+                            <span id="selected-ram" class="text-sm text-gray-500">কোনোটি সিলেক্ট করা হয়নি</span>
+                        </div>
+                        <select id="ram-select" class="border p-2 rounded bg-gray-50 w-full sm:w-auto" onchange="updatePrice()">
+                            <option value="0" data-name="সিলেক্ট করুন">বাছুন...</option>
+                            <option value="45" data-name="Corsair Vengeance 16GB ($45)">Corsair Vengeance 16GB - $45</option>
+                            <option value="85" data-name="G.Skill Trident Z 32GB ($85)">G.Skill Trident Z 32GB - $85</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- টোটাল হিসাব ও কারেন্সি কনভার্টার -->
+            <div class="bg-white p-6 rounded-lg shadow h-fit">
+                <h2 class="text-xl font-bold mb-4 text-gray-700">টোটাল বাজেট</h2>
+                <div class="border-b pb-2 mb-4">
+                    <p class="text-sm text-gray-500">ডলারে দাম (International Market):</p>
+                    <p class="text-3xl font-bold text-green-600">$<span id="total-usd">0</span></p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-sm text-gray-500">টাকায় দাম (অটো কনভার্ট ১$ = ১২০ টাকা):</p>
+                    <p class="text-2xl font-bold text-blue-600">৳<span id="total-bdt">0</span></p>
+                </div>
+                <button class="w-full bg-blue-600 text-white p-3 rounded font-semibold hover:bg-blue-700" onclick="alert('পিসি বিল্ড সেভ হয়েছে!')">
+                    বিল্ডটি সেভ করুন
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- এআই চ্যাটবট বাটন ও পপআপ -->
+    <div class="fixed bottom-5 right-5 z-50">
+        <!-- চ্যাট ওপেন করার বাটন -->
+        <button onclick="toggleChat()" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 flex items-center justify-center text-2xl cursor-pointer">
+            💬
+        </button>
+
+        <!-- চ্যাট উইন্ডো -->
+        <div id="chat-window" class="chat-popup fixed bottom-24 right-5 w-80 sm:w-96 bg-white shadow-2xl rounded-lg overflow-hidden border border-gray-200">
+            <div class="bg-blue-600 p-4 text-white font-bold flex justify-between items-center">
+                <span>🤖 এআই টেক অ্যাসিস্ট্যান্ট (টুল)</span>
+                <button onclick="toggleChat()" class="text-white hover:text-gray-200 font-bold">✕</button>
+            </div>
+            <!-- মেসেজ দেখানোর জায়গা -->
+            <div id="chat-box" class="p-4 h-64 overflow-y-auto space-y-2 text-sm bg-gray-50">
+                <div class="bg-gray-200 p-2 rounded max-w-[80%]">হ্যালো! আমি আপনাকে বাজেট অনুযায়ী পিসি পার্টস সাজেস্ট করতে পারি। আপনার বাজেট কত?</div>
+            </div>
+            <!-- ইনপুট বক্স -->
+            <div class="p-2 border-t flex gap-2">
+                <input type="text" id="user-input" class="w-full border p-2 rounded text-sm focus:outline-none" placeholder="যেমন: আমার বাজেট ৫০ হাজার...">
+                <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold">পাঠান</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- লজিক স্ক্রিপ্ট লিংক -->
+    <script src="script.js"></script>
+</body>
+</html>
